@@ -9,6 +9,9 @@ from mininet.cli import CLI
 from mininet.log import setLogLevel, info
 from mininet.link import TCLink, Intf
 from subprocess import call
+from​​ mininet.util​​ import​ irange,dumpNodeConnections
+from​​ mininet.log​​ import ​setLogLevel
+from​​ mininet.topo​​ import​ Topo
 import sys
 def myNetwork():
 
@@ -77,18 +80,6 @@ def myNetwork():
 	del hosts[:perswitch]
 
 
-#	
-
-
-	
-	    
-
-
-
-
-
-
-
     info( '*** Starting network\n')
     net.build()
     info( '*** Starting controllers\n')
@@ -113,6 +104,17 @@ def myNetwork():
 
     CLI(net)
     net.stop()
+    
+    def​​ simpleTest​ ():
+    ​"Create and test a simple network"
+    topo ​ =​ LinearTopo(k​ =​ 4​ )
+    net ​ =​ Mininet(topo)
+    net​.​start()
+    ​print​​ "Dumping host connections"
+    dumpNodeConnections(net​ .​ hosts)
+    ​print​​ "Testing network connectivity"
+    net​.pingAll()
+    net​.stop()
 
 if __name__ == '__main__':
     setLogLevel( 'info' )
